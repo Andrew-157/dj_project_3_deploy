@@ -4,11 +4,12 @@ from django.template.defaultfilters import slugify
 from taggit.managers import TaggableManager
 
 
-def validate_file_size(file):
-    max_kb_size = 700
+def validate_file_size(image):
 
-    if file.size > max_kb_size * 1024:
-        raise ValidationError(f'Files cannot be larger than {max_kb_size}KB')
+    file_size = image.file.size
+    limit_mb = 5
+    if file_size > limit_mb * 1024 * 1024:
+        raise ValidationError(f"Maximum size of the image is {limit_mb} MB")
 
 
 class Director(models.Model):
