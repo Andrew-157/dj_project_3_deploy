@@ -4,8 +4,8 @@
 <div class="container py-5">
     <div class="container py-5">
         <h2>Number of reviews published on Cookie for movie
-            <a href="{% url 'movies:movie-detail' movie.slug %}" class="font-italic">"{{ movie.title }}"</a>:
-            <mark>{{reviews_ratings|length}}</mark>
+            <a href="{% url 'movies:movie-detail' movie.slug %}" class="font-italic">"{{ movie.title}}"</a>:
+            {{reviews_ratings|length}}
         </h2>
         {% if user_has_review %}
         <a href="{% url 'movies:review-detail' movie.id %}">Check out the review you left on this movie</a>
