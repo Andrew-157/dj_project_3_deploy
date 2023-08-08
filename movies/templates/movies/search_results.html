@@ -1,0 +1,33 @@
+{% extends "movies/header.html" %}
+
+{% block content %}
+{% with actors=results.actors directors=results.directors movies=results.movies %}
+<div class="container py-5">
+    <div class="jumbotron">
+        <h1>Number of search results for <mark>{{ query }}</mark>: {{ number_of_results }}</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3 class="text-primary">Actors found: {{ actors|length }}</h3>
+                {% for actor in actors%}
+                <a href="{% url 'movies:actor-page' actor.slugged_name %}">{{ actor.name }}</a> <br>
+                {% endfor %}
+            </div>
+            <div class="col-sm-4">
+                <h3 class="text-primary">Directors found: {{ directors|length }}</h3>
+                {% for director in directors%}
+                <a href="{% url 'movies:director-page' director.slugged_name %}">{{ director.name }}</a> <br>
+                {% endfor %}
+            </div>
+            <div class="col-sm-4">
+                <h3 class="text-primary">Movies found: {{ movies|length }}</h3>
+                {% for movie in movies %}
+                <a href="{% url 'movies:movie-detail' movie.slug %}">{{ movie.title }}</a> <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endwith %}
+{% endblock %}

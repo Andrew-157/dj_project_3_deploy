@@ -1,0 +1,42 @@
+{% extends "movies/header.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="container py-5">
+        <h2> Number of movies found in genre <mark>"{{ genre }}"</mark>: {{ movies|length }}</h2>
+    </div>
+    <div class="card-columns">
+        {% for movie in movies %}
+        <div class="card" style="width: 300px;">
+            <img class="card-img-top" src="{{ movie.poster.url }}" alt="Movie poster">
+            <div class="card-body">
+                <h4 class="font-italic">"{{ movie.title }}"</h4>
+                {% if movie.avg_rating %}
+                <p class="card-text"><strong>Rating by Cookie users:</strong> {{ movie.avg_rating }}/10</p>
+                {% else %}
+                <p class="text-info">Was not rated by anyone yet</p>
+                {% endif %}
+                <p class="card-text"><strong>Directed by</strong>
+                    <a href="{% url 'movies:director-page' movie.director.slugged_name %}">{{movie.director }}</a>
+                </p>
+                <p class="card-text">
+                    <strong>Country:</strong> {{ movie.get_country_display }}
+                </p>
+                <p class="card-text">
+                    <strong>Genres:</strong>
+                    {% for genre in movie.genres.all %}
+                    <a href="{% url 'movies:genre-movies' genre.slug %}">
+                        <span class="badge badge-light">{{ genre }}</span>
+                    </a>
+                    {% endfor %}
+                </p>
+                <div class="">
+                    <a href="{% url 'movies:movie-detail' movie.slug %}" class="btn btn-primary">
+                        See more</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

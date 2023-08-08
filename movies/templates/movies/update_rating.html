@@ -1,0 +1,13 @@
+{% extends "movies/header.html" %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container py-5">
+    <h1>Update your rating of movie "{{ movie.title }}"</h1>
+    <form action="{% url 'movies:rate-movie-update' movie.id %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-primary" type="submit">Update</button>
+    </form>
+</div>
+{% endblock %}

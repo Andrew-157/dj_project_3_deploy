@@ -1,0 +1,14 @@
+{% extends "movies/header.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Looks like you clicked "Search"-button without entering anything.</h1>
+    <div class="container py-5">
+        <p>
+            Try again entering some search text, or return on the
+            <a href="{% url 'movies:index' %}">Cookie</a> index page and check
+            out movie genres we have available.
+        </p>
+    </div>
+</div>
+{% endblock %}

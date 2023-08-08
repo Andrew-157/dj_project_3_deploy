@@ -1,0 +1,46 @@
+{% extends "movies/header.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="container py-5">
+        <h2>Number of reviews published on Cookie for movie
+            <a href="{% url 'movies:movie-detail' movie.slug %}" class="font-italic">"{{ movie.title }}"</a>:
+            <mark>{{reviews_ratings|length}}</mark>
+        </h2>
+        {% if user_has_review %}
+        <a href="{% url 'movies:review-detail' movie.id %}">Check out the review you left on this movie</a>
+        {% else %}
+        <a href="{% url 'movies:review-movie' movie.id %}" class="btn btn-primary">Publish your review on this
+            movie</a>
+        {% endif %}
+    </div>
+    <div class="container py-5">
+        {% for rr in reviews_ratings %}
+        {% with review=rr.0 rating=rr.1%}
+        <div class="container p-3 my-3 border">
+            {% if rating %}
+            <h3>{{ rating.owner }} rated the movie as: <mark>{{ rating.rating }}/10</mark></h3>
+            {% else %}
+            <h3>{{ review.owner }} has not rated the movie yet</h3>
+            {% endif %}
+            <div class="container py-5">
+                <p class="font-weight-bold">Review:</p>
+                <p class="font-weight-bolder">{{ review.content }}</p>
+            </div>
+            {% if review.published == review.updated %}
+            <p class="text-info">
+                Was published on {{ review.published.date }}.
+            </p>
+            {% else %}
+            <p class="text-info">
+                Review was published on {{ review.published.date }}
+            </p>
+            <p class="text-info">Review was updated on {{ review.updated.date }}</p>
+            {% endif %}
+        </div>
+        {% endwith %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

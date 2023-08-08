@@ -1,0 +1,34 @@
+{% extends "movies/header.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h2>Your review of the movie:
+        <a href="{% url 'movies:movie-detail' movie.slug %}" class="font-italic">"{{ movie.title }}"</a>
+    </h2>
+    {% load crispy_forms_tags %}
+    <div class="container py-5">
+        <form action="{% url 'movies:review-detail' movie.id %}" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-primary" type="submit">Update review</button>
+        </form>
+    </div>
+    <form action="{%  url 'movies:review-delete' movie.id%}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger">Delete your review</button>
+    </form>
+    <div class="container py-5">
+        {% if rating %}
+        <p class="font-weight-bold">Your rating of the movie is: <mark>{{rating.rating}}/10</mark></p>
+        <p class="font-weight-bold">Visit page about this movie to change or delete your rating:
+            <a href="{% url 'movies:movie-detail' movie.slug %}" class="btn btn-primary">{{ movie.title }}</a>
+        </p>
+        {% else %}
+        <p class="text-info">You have not rated the movie </p>
+        <p>Visit about page of the movie to rate the movie:
+            <a href="{% url 'movies:movie-detail' movie.slug %}">{{ movie.title }}</a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

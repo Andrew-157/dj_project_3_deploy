@@ -1,0 +1,19 @@
+{% extends "movies/header.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h1>Check out the genres of movies available on Cookie</h1>
+    {% for genre in genres %}
+    <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'movies:genre-movies' genre.slug %}">{{ genre }}</a>
+            {% if genre.number_of_movies == 1 %}
+            <span class="badge badge-primary badge-pill">1 movie in genre</span>
+            {% else %}
+            <span class="badge badge-primary badge-pill">{{ genre.number_of_movies }} movies in genre</span>
+            {% endif %}
+        </li>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock %}
