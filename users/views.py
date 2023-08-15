@@ -87,7 +87,6 @@ class ChangeUserView(View):
             request.POST, instance=current_user)
         if form.is_valid():
             user = form.save()
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(
                 request, 'You successfully changed your credentials')
             return redirect('movies:index')
