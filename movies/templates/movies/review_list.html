@@ -19,9 +19,9 @@
         {% with review=rr.0 rating=rr.1%}
         <div class="container p-3 my-3 border">
             {% if rating %}
-            <h3>{{ rating.owner }} rated the movie as: <mark>{{ rating.rating }}/10</mark></h3>
+            <h3><mark>{{ rating.owner }}</mark> rated the movie as: <mark>{{ rating.rating }}/10</mark></h3>
             {% else %}
-            <h3>{{ review.owner }} has not rated the movie yet</h3>
+            <h3><mark>{{ review.owner }}</mark> has not rated the movie yet</h3>
             {% endif %}
             <div class="container py-5">
                 <p class="font-weight-bold">Review:</p>
