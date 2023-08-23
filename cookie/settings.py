@@ -29,9 +29,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['djproject3deploy-production.up.railway.app', '127.0.0.1']
+ALLOWED_HOSTS = ['web-production-5bce.up.railway.app/', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://djproject3deploy-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-5bce.up.railway.app/']
 
 
 # Application definition
