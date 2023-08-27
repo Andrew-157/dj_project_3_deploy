@@ -35,8 +35,8 @@ class MoviesByGenreListView(ListView):
         genre = Tag.objects.filter(slug=genre_slug).first()
         if not genre:
             raise Http404
+        self.genre = genre
         movies = Movie.objects.filter(genres=genre).\
-            prefetch_related('genres').\
             select_related('director').all().annotate(
             avg_rating=Avg('ratings__rating')
         )
@@ -44,9 +44,7 @@ class MoviesByGenreListView(ListView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        genre_slug = self.kwargs['slug']
-        genre = Tag.objects.filter(slug=genre_slug).first()
-        context['genre'] = genre
+        context['genre'] = self.genre
         return context
 
 
